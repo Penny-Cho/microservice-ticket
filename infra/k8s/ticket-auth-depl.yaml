@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ticket-auth
-          image: pennycho/ticket-auth
+          image: us.gcr.io/ticketing-dev-346404/ticket-auth
 ---
 apiVersion: v1
 kind: Service
