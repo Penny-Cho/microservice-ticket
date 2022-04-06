@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-auth
+  template:
+    metadata:
+      labels:
+        app: ticket-auth
+    spec:
+      containers:
+        - name: ticket-auth
+          image: pennycho/ticket-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-auth-srv
+spec:
+  selector:
+    app: ticket-auth
+  ports:
+    - name: ticket-auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
