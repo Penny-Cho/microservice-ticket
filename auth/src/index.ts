@@ -1,6 +1,8 @@
 import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
+import mongoose from "mongoose";
+
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
@@ -22,6 +24,17 @@ app.all("*", async (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log("auth on 3000!!!");
-});
+const start = async () => {
+  try {
+    await mongoose.connect("mongodb://ticket-auth-mongo-srv:27017/auth");
+    console.log("connected to mongo auth db");
+  } catch (err) {
+    console.error("mongodbError", err);
+  }
+
+  app.listen(3000, () => {
+    console.log("auth on 3000!!!");
+  });
+};
+
+start();

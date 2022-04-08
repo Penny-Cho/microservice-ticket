@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-auth-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-auth-mongo
+  template:
+    metadata:
+      labels:
+        app: ticket-auth-mongo
+    spec:
+      containers:
+        - name: ticket-auth-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-auth-mongo-srv
+spec:
+  selector:
+    app: ticket-auth-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+# 27107 is default port for mongo
