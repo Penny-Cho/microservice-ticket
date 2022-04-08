@@ -6,16 +6,33 @@ export interface UserAttrs {
   password: string;
 }
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
+// toJSON Method
+// In order to match with other database type such as MySQL or POSTGRES and other program languages return JSON structure,
+// should modify or remove mongo specific key names such as _id, __v and etc.
+// doing below, only "id" and "email" will be sent to front as the response.
+
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.password;
+        delete ret.__v;
+      },
+    },
+  }
+);
 
 userSchema.pre("save", async function (done) {
   if (this.isModified("password")) {
@@ -29,38 +46,3 @@ userSchema.pre("save", async function (done) {
 const User = model<UserAttrs>("User", userSchema);
 
 export { User };
-
-// import { Schema, model, connect } from 'mongoose';
-
-// // 1. Create an interface representing a document in MongoDB.
-// interface User {
-//   name: string;
-//   email: string;
-//   avatar?: string;
-// }
-
-// // 2. Create a Schema corresponding to the document interface.
-// const schema = new Schema<User>({
-//   name: { type: String, required: true },
-//   email: { type: String, required: true },
-//   avatar: String
-// });
-
-// // 3. Create a Model.
-// const UserModel = model<User>('User', schema);
-
-// run().catch(err => console.log(err));
-
-// async function run(): Promise<void> {
-//   // 4. Connect to MongoDB
-//   await connect('mongodb://localhost:27017/test');
-
-// const doc = new UserModel<User>({
-//     name: 'Bill',
-//     email: 'bill@initech.com',
-//     avatar: 'https://i.imgur.com/dM7Thhn.png'
-//    });
-//   await doc.save();
-
-//   console.log(doc.email); // 'bill@initech.com'
-// }
