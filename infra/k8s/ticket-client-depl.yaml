@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-client
+  template:
+    metadata:
+      labels:
+        app: ticket-client
+    spec:
+      containers:
+        - name: ticket-client
+          image: pennycho/client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-client-srv
+spec:
+  selector:
+    app: ticket-client
+  ports:
+    - name: ticket-client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
