@@ -488,6 +488,19 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@pentickets/common@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@pentickets/common/-/common-1.0.5.tgz#a3d687717dc12b956f1e351a2c4654b56dee9798"
+  integrity sha512-sZQikRXWMejDOD+KaPmlJLAQ5ijyADnnJcWpRRpH0loP4P7i+2zWB6k0QuDy24qzxdgh9YsvPynEBEPkT2X3LQ==
+  dependencies:
+    "@types/cookie-session" "^2.0.44"
+    "@types/express" "^4.17.13"
+    "@types/jsonwebtoken" "^8.5.8"
+    cookie-session "^2.0.0"
+    express "^4.17.3"
+    express-validator "^6.14.0"
+    jsonwebtoken "^8.5.1"
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.3.tgz#3802ddd21a50a949b6721ddd72da36e67e7f1b2d"
