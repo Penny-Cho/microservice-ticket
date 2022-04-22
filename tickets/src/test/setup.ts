@@ -1,10 +1,9 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import request from "supertest";
-import { app } from "../app";
+import jwt from "jsonwebtoken";
 
 declare global {
-  var getCookieFromSignin: () => Promise<string[]>;
+  var getCookieFromSignin: () => string[];
 }
 
 let mongo: any;
@@ -32,15 +31,25 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.getCookieFromSignin = async () => {
-  const email = "test@test.com";
-  const password = "password";
+global.getCookieFromSignin = () => {
+  //Build a JWT payload { id, email };
+  const payload = {
+    id: new mongoose.Types.ObjectId().toHexString(),
+    email: "test@test.com",
+  };
 
-  const response = await request(app)
-    .post("/api/users/signup")
-    .send({ email, password })
-    .expect(201);
-  const cookie = response.get("Set-Cookie");
+  //Create the JWT
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
 
-  return cookie;
+  //Build on session object
+  const session = { jwt: token };
+
+  //Turn the session into JSON
+  const sessionJSON = JSON.stringify(session);
+
+  //Take JSOn and encdoe it as base64
+  const base64 = Buffer.from(sessionJSON).toString("base64");
+
+  //return a string thats the cookie with the encoded data
+  return [`session=${base64}`];
 };

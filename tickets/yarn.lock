@@ -488,10 +488,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@pentickets/common@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@pentickets/common/-/common-1.0.5.tgz#a3d687717dc12b956f1e351a2c4654b56dee9798"
-  integrity sha512-sZQikRXWMejDOD+KaPmlJLAQ5ijyADnnJcWpRRpH0loP4P7i+2zWB6k0QuDy24qzxdgh9YsvPynEBEPkT2X3LQ==
+"@pentickets/common@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@pentickets/common/-/common-1.0.6.tgz#e87af105f50c754535adb86884be363e987b7a32"
+  integrity sha512-XfJ1icwAyUrCwAuasq5QNpH8DZ5kFoh8I7F8vqRpM7WLficSV6b0yUTouqpNhwOVjrpq9B/aqlTaWLJdcGkkmg==
   dependencies:
     "@types/cookie-session" "^2.0.44"
     "@types/express" "^4.17.13"
