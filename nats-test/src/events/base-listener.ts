@@ -1,12 +1,18 @@
 import { Message, Stan } from "node-nats-streaming";
+import { Subjects } from "./subjects";
 
-export abstract class Listener {
-  //Name of the quque groups this listener will join
-  abstract subject: string;
+interface Event {
+  subject: Subjects;
+  data: any;
+}
+
+export abstract class Listener<T extends Event> {
+  //Name of the queue groups this listener will join
+  abstract subject: T["subject"];
   //Name of the channel this listener is going to listen to
   abstract queueGroupName: string;
 
-  abstract onMessage(data: any, msg: Message): void;
+  abstract onMessage(data: T["data"], msg: Message): void;
 
   //pre-initialized NATS client
   private client: Stan;
